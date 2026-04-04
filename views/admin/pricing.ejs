@@ -3,80 +3,115 @@
 <main class="page-content" style="padding-top: 120px;">
   <div class="container">
     
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
-      <h1>Dynamic <span style="color: var(--primary)">Pricing</span></h1>
-      <a href="/admin/dashboard" class="btn btn-outline" style="padding: 8px 16px;">← Back to Dashboard</a>
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px;">
+      <h1 style="font-size: 2.5rem;">Dynamic <span style="color: var(--primary)">Pricing</span></h1>
+      <a href="/admin/dashboard" class="btn btn-outline" style="padding: 10px 20px; border-radius: 30px; display: flex; align-items: center; gap: 8px;">
+        <span style="font-size: 1.2rem;">←</span> Back to Dashboard
+      </a>
     </div>
 
     <% if (error) { %>
-      <div style="background: rgba(255, 0, 0, 0.2); color: #ffaaa; padding: 12px; border-radius: 8px; margin-bottom: 20px;">
-        <%= error %>
+      <div style="background: rgba(255, 85, 85, 0.15); border-left: 4px solid #ff5555; color: #ffaaaa; padding: 16px 20px; border-radius: 8px; margin-bottom: 30px; font-weight: 500; display: flex; align-items: center; gap: 12px; backdrop-filter: blur(10px);">
+        <span>⚠️</span> <%= error %>
       </div>
     <% } %>
     <% if (success) { %>
-      <div style="background: rgba(0, 200, 83, 0.2); color: #fff; padding: 12px; border-radius: 8px; margin-bottom: 20px;">
-        <%= success %>
+      <div style="background: rgba(0, 200, 83, 0.15); border-left: 4px solid #00c853; color: #b9f6ca; padding: 16px 20px; border-radius: 8px; margin-bottom: 30px; font-weight: 500; display: flex; align-items: center; gap: 12px; backdrop-filter: blur(10px);">
+        <span>✅</span> <%= success %>
       </div>
     <% } %>
 
-    <div class="grid" style="grid-template-columns: 1fr 2fr; gap: 30px;">
+    <div class="grid" style="grid-template-columns: 1fr 2fr; gap: 40px; align-items: start;">
+      
       <!-- Add/Edit form -->
-      <div class="glass-card">
-        <h3>Override Date Pricing</h3>
-        <p style="color: var(--text-secondary); margin-bottom: 20px; font-size: 0.9rem;">
-          Set complete override prices for a specific date (e.g. Holidays/Weekends).
+      <div class="glass-card" style="padding: 30px; border-top: 4px solid var(--primary);">
+        <h3 style="margin-bottom: 10px; display: flex; align-items: center; gap: 10px;">
+          <span>📅</span> Override Date Pricing
+        </h3>
+        <p style="color: var(--text-secondary); margin-bottom: 25px; font-size: 0.95rem; line-height: 1.5;">
+          Set promotional or surge prices for specific holidays, weekends, or special events.
         </p>
+        
         <form action="/admin/pricing" method="POST">
-          <div class="form-group">
-            <label for="date">Select Date</label>
-            <input type="date" id="date" name="date" class="form-control" required style="color: white; background: rgba(0,0,0,0.5);">
+          <div class="form-group" style="margin-bottom: 20px;">
+            <label for="date" style="font-weight: 500; margin-bottom: 8px; display: block; color: #e0e0e0;">Select Date</label>
+            <input type="date" id="date" name="date" class="form-control" required style="color: white; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 12px; font-family: inherit;">
           </div>
-          <div class="form-group">
-            <label for="standardPrice">Standard Package Price (₹)</label>
-            <input type="number" id="standardPrice" name="standardPrice" class="form-control" required value="2000">
+
+          <div class="form-group" style="margin-bottom: 20px;">
+            <label for="standardPrice" style="font-weight: 500; margin-bottom: 8px; display: block; color: #e0e0e0;">Standard Package (₹)</label>
+            <div style="position: relative;">
+              <span style="position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--text-secondary);">₹</span>
+              <input type="number" id="standardPrice" name="standardPrice" class="form-control" required value="2000" style="padding-left: 35px; background: rgba(0,0,0,0.4); border-radius: 8px;">
+            </div>
           </div>
-          <div class="form-group">
-            <label for="premiumPrice">Premium Package Price (₹)</label>
-            <input type="number" id="premiumPrice" name="premiumPrice" class="form-control" required value="3500">
+
+          <div class="form-group" style="margin-bottom: 20px;">
+            <label for="premiumPrice" style="font-weight: 500; margin-bottom: 8px; display: block; color: #e0e0e0;">Premium Package (₹)</label>
+            <div style="position: relative;">
+              <span style="position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--text-secondary);">₹</span>
+              <input type="number" id="premiumPrice" name="premiumPrice" class="form-control" required value="3500" style="padding-left: 35px; background: rgba(0,0,0,0.4); border-radius: 8px;">
+            </div>
           </div>
-          <div class="form-group">
-            <label for="vipPrice">VIP Package Price (₹)</label>
-            <input type="number" id="vipPrice" name="vipPrice" class="form-control" required value="6000">
+
+          <div class="form-group" style="margin-bottom: 30px;">
+            <label for="vipPrice" style="font-weight: 500; margin-bottom: 8px; display: block; color: #e0e0e0;">VIP Package (₹)</label>
+            <div style="position: relative;">
+              <span style="position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--text-secondary);">₹</span>
+              <input type="number" id="vipPrice" name="vipPrice" class="form-control" required value="6000" style="padding-left: 35px; background: rgba(0,0,0,0.4); border-radius: 8px;">
+            </div>
           </div>
-          <button type="submit" class="btn btn-primary" style="width: 100%;">Save Pricing Rule</button>
+
+          <button type="submit" class="btn btn-primary" style="width: 100%; padding: 14px; font-size: 1.05rem; border-radius: 8px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">
+            Save Pricing Rule
+          </button>
         </form>
       </div>
 
       <!-- Active Rules List -->
-      <div class="glass-card" style="overflow-x: auto;">
-        <h3>Active Pricing Rules</h3>
-        <table style="width: 100%; text-align: left; border-collapse: collapse; margin-top: 20px;">
+      <div class="glass-card" style="padding: 30px; overflow-x: auto;">
+        <h3 style="margin-bottom: 25px; display: flex; align-items: center; gap: 10px;">
+          <span>⚡</span> Active Pricing Rules
+        </h3>
+        
+        <table style="width: 100%; text-align: left; border-collapse: separate; border-spacing: 0; margin-top: 10px;">
           <thead>
-            <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);">
-              <th style="padding: 10px;">Date</th>
-              <th style="padding: 10px;">Standard</th>
-              <th style="padding: 10px;">Premium</th>
-              <th style="padding: 10px;">VIP</th>
-              <th style="padding: 10px;">Action</th>
+            <tr>
+              <th style="padding: 15px 10px; border-bottom: 2px solid rgba(255, 106, 0, 0.4); color: var(--text-secondary); font-weight: 600; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px;">Target Date</th>
+              <th style="padding: 15px 10px; border-bottom: 2px solid rgba(255, 106, 0, 0.4); color: var(--text-secondary); font-weight: 600; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px;">Standard</th>
+              <th style="padding: 15px 10px; border-bottom: 2px solid rgba(255, 106, 0, 0.4); color: var(--text-secondary); font-weight: 600; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px;">Premium</th>
+              <th style="padding: 15px 10px; border-bottom: 2px solid rgba(255, 106, 0, 0.4); color: var(--text-secondary); font-weight: 600; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px;">VIP</th>
+              <th style="padding: 15px 10px; border-bottom: 2px solid rgba(255, 106, 0, 0.4); color: var(--text-secondary); font-weight: 600; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px; text-align: right;">Action</th>
             </tr>
           </thead>
           <tbody>
             <% if (rules && rules.length > 0) { %>
               <% rules.forEach(rule => { %>
-                <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
-                  <td style="padding: 10px; font-weight: bold;"><%= rule.date %></td>
-                  <td style="padding: 10px;">₹<%= rule.standardPrice %></td>
-                  <td style="padding: 10px;">₹<%= rule.premiumPrice %></td>
-                  <td style="padding: 10px;">₹<%= rule.vipPrice %></td>
-                  <td style="padding: 10px;">
-                    <form action="/admin/pricing/delete/<%= rule._id %>" method="POST" style="margin: 0;">
-                      <button type="submit" style="background: none; border: none; color: #ff5555; cursor: pointer; text-decoration: underline;">Remove</button>
+                <tr style="transition: background 0.2s ease;" onmouseover="this.style.background='rgba(255,255,255,0.03)'" onmouseout="this.style.background='transparent'">
+                  <td style="padding: 18px 10px; border-bottom: 1px solid rgba(255,255,255,0.05); font-weight: 500; display: flex; align-items: center; gap: 8px;">
+                    <span style="display: inline-block; width: 8px; height: 8px; background: var(--primary); border-radius: 50%;"></span>
+                    <%= rule.date %>
+                  </td>
+                  <td style="padding: 18px 10px; border-bottom: 1px solid rgba(255,255,255,0.05); font-family: monospace; font-size: 1.05rem;">₹<%= rule.standardPrice %></td>
+                  <td style="padding: 18px 10px; border-bottom: 1px solid rgba(255,255,255,0.05); font-family: monospace; font-size: 1.05rem;">₹<%= rule.premiumPrice %></td>
+                  <td style="padding: 18px 10px; border-bottom: 1px solid rgba(255,255,255,0.05); font-family: monospace; font-size: 1.05rem;">₹<%= rule.vipPrice %></td>
+                  <td style="padding: 18px 10px; border-bottom: 1px solid rgba(255,255,255,0.05); text-align: right;">
+                    <form action="/admin/pricing/delete/<%= rule._id %>" method="POST" style="margin: 0; display: inline-block;">
+                      <button type="submit" style="background: rgba(255, 85, 85, 0.1); border: 1px solid rgba(255, 85, 85, 0.3); color: #ffaaa; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 0.85rem; font-weight: 500; transition: all 0.2s ease;" onmouseover="this.style.background='rgba(255, 85, 85, 0.2)'; this.style.color='#fff'" onmouseout="this.style.background='rgba(255, 85, 85, 0.1)'; this.style.color='#ffaaa'">
+                        🗑️ Remove
+                      </button>
                     </form>
                   </td>
                 </tr>
               <% }); %>
             <% } else { %>
-              <tr><td colspan="5" style="padding: 10px; text-align: center;">No pricing rules defined. Standard pricing applies every day.</td></tr>
+              <tr>
+                <td colspan="5" style="padding: 40px 20px; text-align: center; color: var(--text-secondary); background: rgba(0,0,0,0.2); border-radius: 8px; margin-top: 15px;">
+                  <div style="font-size: 2rem; margin-bottom: 10px; opacity: 0.5;">📅</div>
+                  No promotional rules defined.<br>
+                  <span style="font-size: 0.9rem; opacity: 0.7;">Default standard pricing is currently active for all dates.</span>
+                </td>
+              </tr>
             <% } %>
           </tbody>
         </table>
