@@ -1,6 +1,6 @@
 // Dark/Light Theme Toggle with localStorage persistence
 (function () {
-  const STORAGE_KEY = 'velocity-karts-theme';
+  const STORAGE_KEY = 'velocity-karting-theme';
 
   function getPreferredTheme() {
     const stored = localStorage.getItem(STORAGE_KEY);
