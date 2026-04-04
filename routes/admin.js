@@ -15,7 +15,7 @@ const isAuthenticated = (req, res, next) => {
 // Login GET
 router.get('/login', (req, res) => {
   if (req.session.adminLoggedIn) return res.redirect('/admin/dashboard');
-  res.render('admin/login', { title: 'Admin Login — Velocity Karts', error: null });
+  res.render('admin/login', { title: 'Admin Login — Velocity Karting', error: null });
 });
 
 // Login POST

@@ -35,7 +35,7 @@ router.get('/', async (req, res) => {
   const packagesArr = Object.keys(currentPackages).map(k => ({ name: k, ...currentPackages[k] }));
   
   res.render('booking', {
-    title: 'Book Your Race — Velocity Karts',
+    title: 'Book Your Race — Velocity Karting',
     packages: packagesArr,
     razorpayKey: process.env.RAZORPAY_KEY_ID
   });

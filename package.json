@@ -1,7 +1,7 @@
 {
   "name": "velocity-karts",
   "version": "1.0.0",
-  "description": "Velocity Karts — Go Karting Experience Website",
+  "description": "Velocity Karting — Go Karting Experience Website",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",

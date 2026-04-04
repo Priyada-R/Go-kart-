@@ -45,7 +45,7 @@ app.use((req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`🏎️  Velocity Karts running at http://localhost:${PORT}`);
+  console.log(`🏎️  Velocity Karting running at http://localhost:${PORT}`);
 });
 
 // Triggering restart to load new Razopay keys.

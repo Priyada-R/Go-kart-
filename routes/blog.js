@@ -14,7 +14,7 @@ const blogPosts = [
       <p>Go-kart racing is more than just a weekend hobby — it's the gateway to competitive motorsport and an adrenaline-fueled experience unlike any other. Whether you're a first-timer or a seasoned enthusiast, understanding the fundamentals can transform your time on the track.</p>
 
       <h2>Choosing the Right Kart</h2>
-      <p>Not all karts are created equal. At Velocity Karts, we offer three tiers of machines designed for different skill levels. Our <strong>Standard karts</strong> feature 200cc four-stroke engines perfect for beginners, delivering smooth and predictable power. The <strong>Premium karts</strong> bump up to 270cc with enhanced suspension for faster lap times. For the truly competitive, our <strong>VIP Pro karts</strong> boast 390cc engines with racing-spec tires that can push 70 km/h on the straights.</p>
+      <p>Not all karts are created equal. At Velocity Karting, we offer three tiers of machines designed for different skill levels. Our <strong>Standard karts</strong> feature 200cc four-stroke engines perfect for beginners, delivering smooth and predictable power. The <strong>Premium karts</strong> bump up to 270cc with enhanced suspension for faster lap times. For the truly competitive, our <strong>VIP Pro karts</strong> boast 390cc engines with racing-spec tires that can push 70 km/h on the straights.</p>
 
       <h2>Mastering the Racing Line</h2>
       <p>The fastest path around a track isn't always the shortest. The racing line — the optimal path through each corner — involves braking in a straight line before the turn, clipping the apex (the innermost point of the corner), and accelerating out wide. This technique alone can shave seconds off your lap time.</p>
@@ -26,7 +26,7 @@ const blogPosts = [
       <h2>Race Day Etiquette</h2>
       <p>Respect on the track is paramount. Always check your mirrors before changing lines, yield to faster karts when being lapped, and avoid aggressive bumping. Clean racing not only keeps everyone safe — it also makes you faster by maintaining momentum.</p>
 
-      <h2>Getting Started at Velocity Karts</h2>
+      <h2>Getting Started at Velocity Karting</h2>
       <p>Ready to hit the track? Book a session online, arrive 15 minutes early for your safety briefing, and let our team handle the rest. We provide all the gear — helmet, gloves, and race suit. All you need to bring is your competitive spirit.</p>
     `
   },
@@ -39,7 +39,7 @@ const blogPosts = [
     image: '/images/blog/blog2.webp',
     readTime: '6 min read',
     content: `
-      <p>At Velocity Karts, safety isn't just a priority — it's the foundation of everything we do. Every year, thousands of people enjoy karting without incident because of proper safety measures. Here's what you need to know to stay safe on the track.</p>
+      <p>At Velocity Karting, safety isn't just a priority — it's the foundation of everything we do. Every year, thousands of people enjoy karting without incident because of proper safety measures. Here's what you need to know to stay safe on the track.</p>
 
       <h2>Gear Up Properly</h2>
       <p>Never get into a kart without proper safety equipment. At minimum, you need a <strong>full-face helmet</strong> that fits snugly (we provide DOT-certified helmets in all sizes), a <strong>race suit</strong> to protect against track rash, and <strong>closed-toe shoes</strong> with good grip for the pedals. Our VIP package includes premium racing gloves for enhanced steering control.</p>
@@ -80,7 +80,7 @@ const blogPosts = [
       <h2>4. K1 Speed — Multiple Locations, USA</h2>
       <p>America's premier indoor karting chain has perfected the electric kart experience. Their 20+ horsepower electric karts deliver instant torque and reach speeds of 72 km/h in climate-controlled comfort. The Arrive & Drive format makes it accessible, and their Paddock Lounge adds a premium social element with craft food and racing simulators.</p>
 
-      <h2>5. Velocity Karts — Right Here!</h2>
+      <h2>5. Velocity Karting — Right Here!</h2>
       <p>We may be biased, but our track was designed with input from professional racing drivers to deliver the most exciting recreational karting experience possible. With three track configurations, state-of-the-art electric and petrol karts, a fully equipped pit area, and competitive pricing — why look elsewhere? Book your session today and see for yourself!</p>
     `
   },
@@ -105,7 +105,7 @@ const blogPosts = [
       <p>Most beginners brake in a straight line, then turn. Advanced drivers <em>trail brake</em> — they begin braking before the corner and gradually release the brake as they turn in. This shifts weight to the front tires, increasing front grip through the initial phase of the corner. It's a technique that takes practice but can be worth 0.3-0.5 seconds per corner.</p>
 
       <h2>Analyze Your Data</h2>
-      <p>At Velocity Karts, every session is timed with sector splits. Study your times — identify which sectors you're losing time in and focus your effort there. Often, drivers are fast in some sections and slow in others. Your overall time is only as fast as your weakest sector.</p>
+      <p>At Velocity Karting, every session is timed with sector splits. Study your times — identify which sectors you're losing time in and focus your effort there. Often, drivers are fast in some sections and slow in others. Your overall time is only as fast as your weakest sector.</p>
 
       <h2>Tire Management</h2>
       <p>Kart tires have a limited grip window. In the first few laps, they're cold and sliding. By mid-session, they're at optimal temperature. In the final laps, they may begin to overheat and lose grip. Adjust your driving accordingly — be cautious on cold tires, push hard in the sweet spot, and manage your aggression when grip fades.</p>
@@ -118,7 +118,7 @@ const blogPosts = [
 
 router.get('/', (req, res) => {
   res.render('blog-list', {
-    title: 'Blog — Velocity Karts',
+    title: 'Blog — Velocity Karting',
     posts: blogPosts.map(({ id, title, excerpt, author, date, image, readTime }) => ({ id, title, excerpt, author, date, image, readTime }))
   });
 });
@@ -126,7 +126,7 @@ router.get('/', (req, res) => {
 router.get('/:id', (req, res) => {
   const post = blogPosts.find(p => p.id === req.params.id);
   if (!post) return res.status(404).render('404', { title: 'Post Not Found' });
-  res.render('blog-post', { title: `${post.title} — Velocity Karts`, post });
+  res.render('blog-post', { title: `${post.title} — Velocity Karting`, post });
 });
 
 module.exports = router;

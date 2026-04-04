@@ -17,7 +17,7 @@ const galleryImages = [
 ];
 
 router.get('/', (req, res) => {
-  res.render('gallery', { title: 'Gallery — Velocity Karts', images: galleryImages });
+  res.render('gallery', { title: 'Gallery — Velocity Karting', images: galleryImages });
 });
 
 module.exports = router;

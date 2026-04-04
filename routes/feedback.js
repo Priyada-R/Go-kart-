@@ -3,7 +3,7 @@ const router = express.Router();
 const Feedback = require('../models/Feedback');
 
 router.get('/', (req, res) => {
-  res.render('feedback', { title: 'Share Your Experience — Velocity Karts' });
+  res.render('feedback', { title: 'Share Your Experience — Velocity Karting' });
 });
 
 router.post('/', async (req, res) => {

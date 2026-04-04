@@ -17,7 +17,7 @@ const faqs = [
 ];
 
 router.get('/', (req, res) => {
-  res.render('faq', { title: 'FAQ — Velocity Karts', faqs });
+  res.render('faq', { title: 'FAQ — Velocity Karting', faqs });
 });
 
 module.exports = router;
