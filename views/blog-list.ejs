@@ -1,0 +1,30 @@
+<%- include('partials/header') %>
+
+<div class="page-header">
+  <h1 class="gradient-text">Blog</h1>
+  <p>Tips, stories, and everything you need to dominate the track.</p>
+</div>
+
+<div class="container section">
+  <div class="blog-grid">
+    <% posts.forEach((post, i) => { %>
+      <a href="/blog/<%= post.id %>" class="glass-card blog-card animate-on-scroll" style="animation-delay: <%= i * 0.1 %>s; text-decoration:none;">
+        <div class="blog-card-image">
+          <img src="<%= post.image %>" alt="<%= post.title %>" loading="lazy">
+        </div>
+        <div class="blog-card-body">
+          <div class="blog-card-meta">
+            <span>✍️ <%= post.author %></span>
+            <span>📅 <%= post.date %></span>
+            <span>⏱️ <%= post.readTime %></span>
+          </div>
+          <h3><%= post.title %></h3>
+          <p><%= post.excerpt %></p>
+          <span class="blog-read-more">Read More →</span>
+        </div>
+      </a>
+    <% }) %>
+  </div>
+</div>
+
+<%- include('partials/footer') %>

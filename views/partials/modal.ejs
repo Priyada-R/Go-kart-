@@ -1,0 +1,14 @@
+<!-- Reusable Modal Component -->
+<div class="modal-overlay" id="<%= modalId || 'modal' %>">
+  <div class="modal-content glass-card">
+    <button class="modal-close" aria-label="Close modal">&times;</button>
+    <div class="modal-icon"><%= modalIcon || '✅' %></div>
+    <h2><%= modalTitle || 'Success!' %></h2>
+    <p><%= modalMessage || 'Your action was completed successfully.' %></p>
+    <% if (typeof modalAction !== 'undefined' && modalAction) { %>
+      <div style="text-align:center">
+        <a href="<%= modalAction.href %>" class="btn btn-primary"><%= modalAction.text %></a>
+      </div>
+    <% } %>
+  </div>
+</div>

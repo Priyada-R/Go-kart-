@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Velocity Karts — The ultimate go karting experience. Book your race, feel the adrenaline, dominate the track.">
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏎️</text></svg>">
+</head>
+<body>
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">
+        <span class="logo-icon">🏎️</span>
+        Velocity<span>Karts</span>
+      </a>
+
+      <div class="nav-links" id="nav-links">
+        <a href="/" class="<%= title.includes('Ultimate') || title.includes('Velocity Karts —') && !title.includes('—') ? 'active' : '' %>">Home</a>
+        <a href="/booking" class="<%= title.includes('Book') ? 'active' : '' %>">Book Now</a>
+        <a href="/gallery" class="<%= title.includes('Gallery') ? 'active' : '' %>">Gallery</a>
+        <a href="/blog" class="<%= title.includes('Blog') ? 'active' : '' %>">Blog</a>
+        <a href="/faq" class="<%= title.includes('FAQ') ? 'active' : '' %>">FAQ</a>
+        <a href="/feedback" class="<%= title.includes('Share') ? 'active' : '' %>">Feedback</a>
+      </div>
+
+      <div class="nav-actions">
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">🌙</button>
+        <a href="/booking" class="btn btn-primary btn-sm" style="display:none" id="nav-book-btn">Book Now</a>
+        <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <script>
+    // Navbar scroll effect
+    window.addEventListener('scroll', () => {
+      document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+    });
+    // Mobile menu toggle
+    document.getElementById('nav-hamburger').addEventListener('click', () => {
+      document.getElementById('nav-links').classList.toggle('open');
+    });
+    // Close mobile menu on link click
+    document.querySelectorAll('#nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        document.getElementById('nav-links').classList.remove('open');
+      });
+    });
+  </script>

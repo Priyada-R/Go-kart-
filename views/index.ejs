@@ -1,0 +1,91 @@
+<%- include('partials/header') %>
+
+<!-- Hero Section -->
+<section class="hero" id="hero">
+  <div class="float-element"></div>
+  <div class="float-element"></div>
+  <div class="float-element"></div>
+
+  <div class="hero-bg">
+    <img src="/images/hero-bg.webp" alt="Go kart racing track at night">
+  </div>
+  <div class="hero-overlay"></div>
+
+  <div class="hero-content">
+    <div class="hero-badge">🏁 #1 Go Karting Experience</div>
+    <h1>Feel the <span class="gradient-text">Rush</span> of the Track</h1>
+    <p>Experience heart-pounding go kart racing on professionally designed circuits. Book your session, gear up, and race your way to the podium.</p>
+    <div class="hero-actions">
+      <a href="/booking" class="btn btn-primary btn-lg">Book Your Race →</a>
+      <a href="/gallery" class="btn btn-outline btn-lg">View Gallery</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <h3>70<span style="font-size:1.2rem">km/h</span></h3>
+        <p>Top Speed</p>
+      </div>
+      <div class="hero-stat">
+        <h3>15K+</h3>
+        <p>Happy Racers</p>
+      </div>
+      <div class="hero-stat">
+        <h3>3</h3>
+        <p>Track Configs</p>
+      </div>
+      <div class="hero-stat">
+        <h3>4.9<span style="font-size:1rem">★</span></h3>
+        <p>Rating</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Features Section -->
+<section class="section" id="features">
+  <div class="container">
+    <h2 class="section-title animate-on-scroll">Why <span class="accent-text">Velocity Karts</span>?</h2>
+    <p class="section-subtitle animate-on-scroll">We're not just a karting track — we're an adrenaline-fueled experience designed for thrill seekers.</p>
+    <div class="features-grid">
+      <% features.forEach((feature, i) => { %>
+        <div class="glass-card feature-card animate-on-scroll" style="animation-delay: <%= i * 0.1 %>s">
+          <span class="feature-icon"><%= feature.icon %></span>
+          <h3><%= feature.title %></h3>
+          <p><%= feature.desc %></p>
+        </div>
+      <% }) %>
+    </div>
+  </div>
+</section>
+
+<!-- Testimonials Section -->
+<section class="section" id="testimonials" style="background: var(--bg-secondary);">
+  <div class="container">
+    <h2 class="section-title animate-on-scroll">What <span class="accent-text">Racers</span> Say</h2>
+    <p class="section-subtitle animate-on-scroll">Don't just take our word for it — hear from the people who've experienced the track.</p>
+    <div class="testimonials-grid">
+      <% testimonials.forEach((t, i) => { %>
+        <div class="glass-card testimonial-card animate-on-scroll" style="animation-delay: <%= i * 0.15 %>s">
+          <p class="quote"><%= t.quote %></p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar"><%= t.avatar %></div>
+            <div>
+              <div class="testimonial-name"><%= t.name %></div>
+              <div class="testimonial-role"><%= t.role %></div>
+            </div>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+  </div>
+</section>
+
+<!-- CTA Section -->
+<section class="section">
+  <div class="cta-section animate-on-scroll">
+    <h2>Ready to Race?</h2>
+    <p>Book your session now and experience the thrill of professional go karting. First-timers get 10% off!</p>
+    <a href="/booking" class="btn btn-lg">Book Now — Starting at ₹2,000 →</a>
+  </div>
+</section>
+
+<%- include('partials/footer') %>

@@ -1,0 +1,211 @@
+<%- include('partials/header') %>
+
+<div class="page-header">
+  <h1 class="gradient-text">Book Your Race</h1>
+  <p>Choose your package, pick a time, and get ready for the ride of your life.</p>
+</div>
+
+<div class="container">
+  <!-- Packages -->
+  <section class="packages-section">
+    <h2 class="section-title" style="margin-bottom:40px">Choose Your <span class="accent-text">Package</span></h2>
+    <div class="packages-grid">
+      <% packages.forEach((pkg, i) => { %>
+        <div class="glass-card package-card <%= i === 1 ? 'featured' : '' %>" data-package="<%= pkg.name %>" data-price="<%= pkg.price %>" onclick="selectPackage(this)">
+          <div class="package-name"><%= pkg.name %></div>
+          <div class="package-price">
+            <span class="currency-symbol">₹</span><%= pkg.price %>
+            <span class="per-person">/person</span>
+          </div>
+          <div class="package-duration"><%= pkg.duration %> session</div>
+          <ul class="package-features">
+            <% pkg.features.forEach(f => { %>
+              <li><%= f %></li>
+            <% }) %>
+          </ul>
+        </div>
+      <% }) %>
+    </div>
+  </section>
+
+  <!-- Booking Form + Price Summary -->
+  <div class="booking-layout">
+    <form class="glass-card booking-form" id="booking-form">
+      <h3 style="margin-bottom:24px; font-size:1.4rem;">Your Details</h3>
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="book-name">Full Name</label>
+          <input type="text" id="book-name" name="name" placeholder="e.g. John Doe" required>
+        </div>
+        <div class="form-group">
+          <label for="book-email">Email</label>
+          <input type="email" id="book-email" name="email" placeholder="john@example.com" required>
+        </div>
+        <div class="form-group">
+          <label for="book-phone">Phone</label>
+          <input type="tel" id="book-phone" name="phone" placeholder="+1 555 0199" required>
+        </div>
+        <div class="form-group">
+          <label for="book-date">Race Date</label>
+          <input type="date" id="book-date" name="date" required>
+        </div>
+        <div class="form-group">
+          <label for="book-time">Time Slot</label>
+          <select id="book-time" name="timeSlot" required>
+            <option value="">Select a time</option>
+            <option value="10:00 AM">10:00 AM</option>
+            <option value="11:00 AM">11:00 AM</option>
+            <option value="12:00 PM">12:00 PM</option>
+            <option value="1:00 PM">1:00 PM</option>
+            <option value="2:00 PM">2:00 PM</option>
+            <option value="3:00 PM">3:00 PM</option>
+            <option value="4:00 PM">4:00 PM</option>
+            <option value="5:00 PM">5:00 PM</option>
+            <option value="6:00 PM">6:00 PM</option>
+            <option value="7:00 PM">7:00 PM</option>
+            <option value="8:00 PM">8:00 PM</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="book-racers">Number of Racers</label>
+          <input type="number" id="book-racers" name="numRacers" min="1" max="20" value="1" required>
+        </div>
+      </div>
+      <input type="hidden" id="book-package" name="packageType" value="">
+      <input type="hidden" id="book-total" name="totalPrice" value="0">
+      <input type="hidden" id="book-currency" name="currency" value="INR">
+      <button type="submit" class="btn btn-primary btn-lg" style="width:100%; margin-top:32px;">
+        Confirm Booking 🏁
+      </button>
+    </form>
+
+    <!-- Price Summary Sidebar -->
+    <div class="glass-card price-summary">
+      <h3>💰 Price Summary</h3>
+      <div class="summary-row">
+        <span>Package</span>
+        <span id="sum-package">—</span>
+      </div>
+      <div class="summary-row">
+        <span>Price / person</span>
+        <span id="sum-price">₹0</span>
+      </div>
+      <div class="summary-row">
+        <span>Racers</span>
+        <span id="sum-racers">1</span>
+      </div>
+      <div class="summary-row total">
+        <span>Total</span>
+        <span id="booking-total" data-total="0">₹0</span>
+      </div>
+
+      <!-- Currency Converter -->
+      <div class="currency-converter">
+        <h4>💱 Currency Converter</h4>
+        <div class="currency-select-row">
+          <select id="currency-select">
+            <option value="INR">🇮🇳 INR</option>
+            <option value="EUR">🇪🇺 EUR</option>
+            <option value="GBP">🇬🇧 GBP</option>
+            <option value="USD">🇺🇸 USD</option>
+            <option value="JPY">🇯🇵 JPY</option>
+            <option value="AUD">🇦🇺 AUD</option>
+            <option value="CAD">🇨🇦 CAD</option>
+            <option value="CHF">🇨🇭 CHF</option>
+            <option value="CNY">🇨🇳 CNY</option>
+            <option value="SGD">🇸🇬 SGD</option>
+            <option value="AED">🇦🇪 AED</option>
+            <option value="BRL">🇧🇷 BRL</option>
+            <option value="KRW">🇰🇷 KRW</option>
+            <option value="MXN">🇲🇽 MXN</option>
+            <option value="ZAR">🇿🇦 ZAR</option>
+          </select>
+        </div>
+        <div id="converted-price" class="converted-price"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Success Modal -->
+<%- include('partials/modal', {
+  modalId: 'booking-success-modal',
+  modalIcon: '🏁',
+  modalTitle: 'Booking Confirmed!',
+  modalMessage: 'Your race is booked! Get ready to experience the thrill. Check your email for details.',
+  modalAction: { href: '/', text: 'Back to Home' }
+}) %>
+
+<script src="/js/currency.js"></script>
+<script>
+  // Set min date to today
+  document.getElementById('book-date').min = new Date().toISOString().split('T')[0];
+
+  let selectedPackage = null;
+  let packagePrice = 0;
+
+  function selectPackage(card) {
+    document.querySelectorAll('.package-card').forEach(c => c.classList.remove('selected'));
+    card.classList.add('selected');
+    selectedPackage = card.getAttribute('data-package');
+    packagePrice = parseInt(card.getAttribute('data-price'));
+    document.getElementById('book-package').value = selectedPackage;
+    updateTotal();
+  }
+
+  document.getElementById('book-racers').addEventListener('input', updateTotal);
+
+  function updateTotal() {
+    const racers = parseInt(document.getElementById('book-racers').value) || 1;
+    const total = packagePrice * racers;
+
+    document.getElementById('sum-package').textContent = selectedPackage || '—';
+    document.getElementById('sum-price').textContent = '₹' + packagePrice;
+    document.getElementById('sum-racers').textContent = racers;
+    document.getElementById('booking-total').textContent = '₹' + total;
+    document.getElementById('booking-total').setAttribute('data-total', total);
+    document.getElementById('book-total').value = total;
+
+    // Trigger currency update
+    const currencySelect = document.getElementById('currency-select');
+    if (currencySelect.value !== 'INR') {
+      currencySelect.dispatchEvent(new Event('change'));
+    }
+  }
+
+  // Form submit
+  document.getElementById('booking-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    if (!selectedPackage) {
+      alert('Please select a package first!');
+      return;
+    }
+
+    const formData = new FormData(e.target);
+    const data = Object.fromEntries(formData.entries());
+
+    try {
+      const res = await fetch('/booking', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+      const result = await res.json();
+      if (result.success) {
+        window.openModal('booking-success-modal');
+        e.target.reset();
+        selectedPackage = null;
+        packagePrice = 0;
+        document.querySelectorAll('.package-card').forEach(c => c.classList.remove('selected'));
+        updateTotal();
+      } else {
+        alert('Error: ' + result.message);
+      }
+    } catch (err) {
+      alert('Something went wrong. Please try again.');
+    }
+  });
+</script>
+
+<%- include('partials/footer') %>

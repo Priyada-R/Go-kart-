@@ -1,0 +1,38 @@
+<%- include('partials/header') %>
+
+<div class="page-header">
+  <h1 class="gradient-text">Gallery</h1>
+  <p>Relive the action — check out the best moments from our track.</p>
+</div>
+
+<div class="container section">
+  <!-- Filter Buttons -->
+  <div class="gallery-filters">
+    <button class="filter-btn active" data-category="all">All</button>
+    <button class="filter-btn" data-category="track">Track</button>
+    <button class="filter-btn" data-category="karts">Karts</button>
+    <button class="filter-btn" data-category="racers">Racers</button>
+    <button class="filter-btn" data-category="events">Events</button>
+  </div>
+
+  <!-- Image Grid -->
+  <div class="gallery-grid">
+    <% images.forEach(img => { %>
+      <div class="gallery-item" data-category="<%= img.category %>">
+        <img src="<%= img.src %>" alt="<%= img.caption %>" loading="lazy">
+        <div class="gallery-caption"><%= img.caption %></div>
+      </div>
+    <% }) %>
+  </div>
+</div>
+
+<!-- Lightbox -->
+<div class="lightbox-overlay" id="lightbox">
+  <button class="lightbox-close" aria-label="Close lightbox">&times;</button>
+  <img src="" alt="">
+  <div class="lightbox-caption"></div>
+</div>
+
+<script src="/js/gallery.js"></script>
+
+<%- include('partials/footer') %>

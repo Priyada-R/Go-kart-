@@ -1,0 +1,37 @@
+<%- include('partials/header') %>
+
+<div class="page-header">
+  <a href="/blog" style="color: var(--text-muted); font-size: 0.95rem;">← Back to Blog</a>
+</div>
+
+<div class="container">
+  <article class="blog-article">
+    <header class="blog-article-header">
+      <h1><%= post.title %></h1>
+      <div class="blog-article-meta">
+        <span class="author">
+          <span style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-light));display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:0.8rem;font-weight:700;"><%= post.author.split(' ').map(n=>n[0]).join('') %></span>
+          <%= post.author %>
+        </span>
+        <span>📅 <%= post.date %></span>
+        <span>⏱️ <%= post.readTime %></span>
+      </div>
+    </header>
+
+    <div class="blog-article-image">
+      <img src="<%= post.image %>" alt="<%= post.title %>">
+    </div>
+
+    <div class="blog-article-content">
+      <%- post.content %>
+    </div>
+
+    <div style="margin-top:60px; padding-top:40px; border-top:1px solid var(--border-color); text-align:center;">
+      <h3 style="margin-bottom:16px;">Enjoyed this article?</h3>
+      <p style="color: var(--text-secondary); margin-bottom:24px;">Book your session and experience everything we talked about firsthand.</p>
+      <a href="/booking" class="btn btn-primary">Book Your Race →</a>
+    </div>
+  </article>
+</div>
+
+<%- include('partials/footer') %>
