@@ -1,0 +1,89 @@
+<%- include('../partials/admin-header') %>
+
+<main class="page-content" style="padding-top: 120px;">
+  <div class="container">
+    
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+      <h1>Dynamic <span style="color: var(--primary)">Pricing</span></h1>
+      <a href="/admin/dashboard" class="btn btn-outline" style="padding: 8px 16px;">← Back to Dashboard</a>
+    </div>
+
+    <% if (error) { %>
+      <div style="background: rgba(255, 0, 0, 0.2); color: #ffaaa; padding: 12px; border-radius: 8px; margin-bottom: 20px;">
+        <%= error %>
+      </div>
+    <% } %>
+    <% if (success) { %>
+      <div style="background: rgba(0, 200, 83, 0.2); color: #fff; padding: 12px; border-radius: 8px; margin-bottom: 20px;">
+        <%= success %>
+      </div>
+    <% } %>
+
+    <div class="grid" style="grid-template-columns: 1fr 2fr; gap: 30px;">
+      <!-- Add/Edit form -->
+      <div class="glass-card">
+        <h3>Override Date Pricing</h3>
+        <p style="color: var(--text-secondary); margin-bottom: 20px; font-size: 0.9rem;">
+          Set complete override prices for a specific date (e.g. Holidays/Weekends).
+        </p>
+        <form action="/admin/pricing" method="POST">
+          <div class="form-group">
+            <label for="date">Select Date</label>
+            <input type="date" id="date" name="date" class="form-control" required style="color: white; background: rgba(0,0,0,0.5);">
+          </div>
+          <div class="form-group">
+            <label for="standardPrice">Standard Package Price (₹)</label>
+            <input type="number" id="standardPrice" name="standardPrice" class="form-control" required value="2000">
+          </div>
+          <div class="form-group">
+            <label for="premiumPrice">Premium Package Price (₹)</label>
+            <input type="number" id="premiumPrice" name="premiumPrice" class="form-control" required value="3500">
+          </div>
+          <div class="form-group">
+            <label for="vipPrice">VIP Package Price (₹)</label>
+            <input type="number" id="vipPrice" name="vipPrice" class="form-control" required value="6000">
+          </div>
+          <button type="submit" class="btn btn-primary" style="width: 100%;">Save Pricing Rule</button>
+        </form>
+      </div>
+
+      <!-- Active Rules List -->
+      <div class="glass-card" style="overflow-x: auto;">
+        <h3>Active Pricing Rules</h3>
+        <table style="width: 100%; text-align: left; border-collapse: collapse; margin-top: 20px;">
+          <thead>
+            <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);">
+              <th style="padding: 10px;">Date</th>
+              <th style="padding: 10px;">Standard</th>
+              <th style="padding: 10px;">Premium</th>
+              <th style="padding: 10px;">VIP</th>
+              <th style="padding: 10px;">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% if (rules && rules.length > 0) { %>
+              <% rules.forEach(rule => { %>
+                <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                  <td style="padding: 10px; font-weight: bold;"><%= rule.date %></td>
+                  <td style="padding: 10px;">₹<%= rule.standardPrice %></td>
+                  <td style="padding: 10px;">₹<%= rule.premiumPrice %></td>
+                  <td style="padding: 10px;">₹<%= rule.vipPrice %></td>
+                  <td style="padding: 10px;">
+                    <form action="/admin/pricing/delete/<%= rule._id %>" method="POST" style="margin: 0;">
+                      <button type="submit" style="background: none; border: none; color: #ff5555; cursor: pointer; text-decoration: underline;">Remove</button>
+                    </form>
+                  </td>
+                </tr>
+              <% }); %>
+            <% } else { %>
+              <tr><td colspan="5" style="padding: 10px; text-align: center;">No pricing rules defined. Standard pricing applies every day.</td></tr>
+            <% } %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<%- include('../partials/admin-footer') %>

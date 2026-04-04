@@ -1,0 +1,49 @@
+<%- include('../partials/admin-header') %>
+
+<main class="page-content" style="padding-top: 120px;">
+  <div class="container">
+    
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+      <h1>User <span style="color: var(--primary)">Feedback</span></h1>
+      <a href="/admin/dashboard" class="btn btn-outline" style="padding: 8px 16px;">← Back to Dashboard</a>
+    </div>
+
+    <div class="glass-card" style="overflow-x: auto;">
+      <table style="width: 100%; text-align: left; border-collapse: collapse;">
+        <thead>
+          <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);">
+            <th style="padding: 15px;">Date</th>
+            <th style="padding: 15px;">Name</th>
+            <th style="padding: 15px;">Rating</th>
+            <th style="padding: 15px;">Message</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if (feedbacks && feedbacks.length > 0) { %>
+            <% feedbacks.forEach(fb => { %>
+              <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                <td style="padding: 15px; vertical-align: top;"><%= new Date(fb.createdAt).toLocaleDateString() %></td>
+                <td style="padding: 15px; vertical-align: top;">
+                  <%= fb.name %><br>
+                  <small style="color: var(--text-secondary);"><%= fb.email %></small>
+                </td>
+                <td style="padding: 15px; vertical-align: top; color: #ffb400; font-size: 1.2rem;">
+                  <% for(let i=0; i<fb.rating; i++) { %>★<% } %>
+                  <% for(let i=fb.rating; i<5; i++) { %>☆<% } %>
+                </td>
+                <td style="padding: 15px; vertical-align: top; max-width: 400px; word-wrap: break-word;">
+                  <%= fb.message %>
+                </td>
+              </tr>
+            <% }); %>
+          <% } else { %>
+            <tr><td colspan="4" style="padding: 15px; text-align: center;">No feedback found.</td></tr>
+          <% } %>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</main>
+
+<%- include('../partials/admin-footer') %>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= typeof title !== 'undefined' ? title : 'Admin Portal' %></title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛡️</text></svg>">
+</head>
+<body style="min-height: 100vh; display: flex; flex-direction: column; background: var(--bg-primary);">
+  <!-- Minimal Admin Navbar -->
+  <nav class="navbar" style="position: fixed; top: 0; width: 100%; z-index: 1000; background: rgba(15, 15, 20, 0.95); border-bottom: 1px solid rgba(255,106,0,0.3);">
+    <div class="nav-inner" style="justify-content: center;">
+      <div class="nav-logo" style="margin: 0; font-size: 1.5rem;">
+        <span class="logo-icon">🛡️</span>
+        Velocity<span>Admin</span>
+      </div>
+    </div>
+  </nav>

@@ -1,0 +1,65 @@
+<%- include('../partials/admin-header') %>
+
+<main class="page-content" style="padding-top: 120px;">
+  <div class="container">
+    
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+      <h1>Admin <span style="color: var(--primary)">Dashboard</span></h1>
+      <div>
+        <a href="/admin/bookings" class="btn" style="padding: 8px 16px;">Bookings</a>
+        <a href="/admin/feedback" class="btn" style="padding: 8px 16px;">Feedback</a>
+        <a href="/admin/pricing" class="btn" style="padding: 8px 16px;">Pricing</a>
+        <a href="/admin/logout" class="btn btn-outline" style="padding: 8px 16px; margin-left: 10px;">Logout</a>
+      </div>
+    </div>
+
+    <!-- Stats Grid -->
+    <div style="display: flex; flex-wrap: wrap; gap: 20px; margin-bottom: 40px;">
+      <div class="glass-card" style="flex: 1; text-align: center; min-width: 250px; background: rgba(0, 200, 83, 0.05); border: 1px solid rgba(0, 200, 83, 0.2);">
+        <h3 style="margin-bottom: 10px; color: var(--text-secondary);">🏎️ Total Bookings</h3>
+        <div style="font-size: 3rem; font-weight: bold; color: #00c853;"><%= totalBookings %></div>
+      </div>
+      <div class="glass-card" style="flex: 1; text-align: center; min-width: 250px; background: rgba(255, 106, 0, 0.05); border: 1px solid rgba(255, 106, 0, 0.2);">
+        <h3 style="margin-bottom: 10px; color: var(--text-secondary);">💰 Total Revenue</h3>
+        <div style="font-size: 3rem; font-weight: bold; color: var(--primary);">₹<%= totalRevenue.toLocaleString() %></div>
+      </div>
+      <div class="glass-card" style="flex: 1; text-align: center; min-width: 250px; background: rgba(0, 191, 255, 0.05); border: 1px solid rgba(0, 191, 255, 0.2);">
+        <h3 style="margin-bottom: 10px; color: var(--text-secondary);">⭐ Feedback Count</h3>
+        <div style="font-size: 3rem; font-weight: bold; color: #00bfff;"><%= totalFeedback %></div>
+      </div>
+    </div>
+
+    <h2>Recent Bookings</h2>
+    <div class="glass-card" style="overflow-x: auto;">
+      <table style="width: 100%; text-align: left; border-collapse: collapse;">
+        <thead>
+          <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);">
+            <th style="padding: 15px;">Date</th>
+            <th style="padding: 15px;">Name</th>
+            <th style="padding: 15px;">Package</th>
+            <th style="padding: 15px;">Status</th>
+            <th style="padding: 15px;">Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if (recentBookings && recentBookings.length > 0) { %>
+            <% recentBookings.forEach(booking => { %>
+              <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                <td style="padding: 15px;"><%= new Date(booking.date).toLocaleDateString() %> <%= booking.timeSlot %></td>
+                <td style="padding: 15px;"><%= booking.name %></td>
+                <td style="padding: 15px; color: var(--primary);"><%= booking.packageType %></td>
+                <td style="padding: 15px;"><span style="padding: 4px 8px; background: rgba(255,255,255,0.1); border-radius: 4px;"><%= booking.paymentStatus || 'Pending' %></span></td>
+                <td style="padding: 15px;">₹<%= booking.totalPrice %></td>
+              </tr>
+            <% }); %>
+          <% } else { %>
+            <tr><td colspan="5" style="padding: 15px; text-align: center;">No recent bookings found.</td></tr>
+          <% } %>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</main>
+
+<%- include('../partials/admin-footer') %>

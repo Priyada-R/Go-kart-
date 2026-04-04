@@ -1,0 +1,64 @@
+<%- include('../partials/admin-header') %>
+
+<main class="page-content" style="padding-top: 120px;">
+  <div class="container">
+    
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+      <h1>Manage <span style="color: var(--primary)">Bookings</span></h1>
+      <a href="/admin/dashboard" class="btn btn-outline" style="padding: 8px 16px;">← Back to Dashboard</a>
+    </div>
+
+    <div class="glass-card" style="overflow-x: auto;">
+      <table style="width: 100%; text-align: left; border-collapse: collapse;">
+        <thead>
+          <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);">
+            <th style="padding: 15px;">Date & Time</th>
+            <th style="padding: 15px;">Client Details</th>
+            <th style="padding: 15px;">Racers</th>
+            <th style="padding: 15px;">Package</th>
+            <th style="padding: 15px;">Status</th>
+            <th style="padding: 15px;">Amount</th>
+            <th style="padding: 15px;">Receipt</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if (bookings && bookings.length > 0) { %>
+            <% bookings.forEach(booking => { %>
+              <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                <td style="padding: 15px;">
+                  <%= new Date(booking.date).toLocaleDateString() %><br>
+                  <small style="color: var(--text-secondary);"><%= booking.timeSlot %></small>
+                </td>
+                <td style="padding: 15px;">
+                  <%= booking.name %><br>
+                  <small style="color: var(--text-secondary);"><%= booking.email %></small><br>
+                  <small style="color: var(--text-secondary);"><%= booking.phone %></small>
+                </td>
+                <td style="padding: 15px;"><%= booking.numRacers %></td>
+                <td style="padding: 15px; color: var(--primary);"><%= booking.packageType %></td>
+                <td style="padding: 15px;">
+                  <span style="padding: 4px 8px; font-size: 0.8rem; background: <%= booking.paymentStatus === 'Completed' ? 'rgba(0, 200, 83, 0.2)' : 'rgba(255, 255, 255, 0.1)' %>; border-radius: 4px;">
+                    <%= booking.paymentStatus || 'Pending' %>
+                  </span>
+                </td>
+                <td style="padding: 15px;">₹<%= booking.totalPrice %></td>
+                <td style="padding: 15px;">
+                  <% if (booking.receiptId) { %>
+                    <a href="/booking/receipt/<%= booking.receiptId %>" target="_blank" style="color: var(--primary); text-decoration: underline;">View</a>
+                  <% } else { %>
+                    -
+                  <% } %>
+                </td>
+              </tr>
+            <% }); %>
+          <% } else { %>
+            <tr><td colspan="7" style="padding: 15px; text-align: center;">No bookings found.</td></tr>
+          <% } %>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</main>
+
+<%- include('../partials/admin-footer') %>

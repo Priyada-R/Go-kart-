@@ -14,6 +14,10 @@ const bookingSchema = new mongoose.Schema({
   },
   totalPrice: { type: Number, required: true },
   currency: { type: String, default: 'INR' },
+  paymentStatus: { type: String, enum: ['Pending', 'Completed', 'Failed'], default: 'Pending' },
+  razorpayOrderId: { type: String },
+  razorpayPaymentId: { type: String },
+  receiptId: { type: String },
   createdAt: { type: Date, default: Date.now }
 });
 
