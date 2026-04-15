@@ -44,8 +44,11 @@ app.use((req, res) => {
   res.status(404).render('404', { title: 'Page Not Found' });
 });
 
-app.listen(PORT, () => {
-  console.log(`🏎️  Velocity Karting running at http://localhost:${PORT}`);
-});
+if (process.env.NODE_ENV !== 'production') {
+  app.listen(PORT, () => {
+    console.log(`🏎️  Velocity Karting running at http://localhost:${PORT}`);
+  });
+}
 
-// Triggering restart to load new Razopay keys.
+// Export for serverless environments (Vercel)
+module.exports = app;
