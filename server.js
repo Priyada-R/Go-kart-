@@ -1,12 +1,15 @@
 require('dotenv').config();
+console.log('--- Render Engine Booting Sequence Started ---');
 const express = require('express');
 const path = require('path');
 const cors = require('cors');
 const connectDB = require('./config/db');
 const session = require('express-session');
+const http = require('http');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+console.log(`Configured to bind to port: ${PORT}`);
 
 // Connect to MongoDB
 connectDB();
@@ -44,10 +47,9 @@ app.use((req, res) => {
   res.status(404).render('404', { title: 'Page Not Found' });
 });
 
-// Start the server (Required for Render, Railway, Heroku)
-app.listen(PORT, '0.0.0.0', () => {
-  console.log(`🏎️  Velocity Karting running at http://0.0.0.0:${PORT}`);
+// Explicit Native Server Bind
+console.log('Initiating server.listen() binding call...');
+const server = http.createServer(app);
+server.listen(PORT, '0.0.0.0', () => {
+  console.log(`🏎️  Velocity Karting ACTIVE and LISTENING at http://0.0.0.0:${PORT}`);
 });
-
-// Export for serverless environments (Vercel)
-module.exports = app;
