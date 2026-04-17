@@ -44,11 +44,10 @@ app.use((req, res) => {
   res.status(404).render('404', { title: 'Page Not Found' });
 });
 
-if (process.env.NODE_ENV !== 'production') {
-  app.listen(PORT, () => {
-    console.log(`🏎️  Velocity Karting running at http://localhost:${PORT}`);
-  });
-}
+// Start the server (Required for Render, Railway, Heroku)
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`🏎️  Velocity Karting running at http://0.0.0.0:${PORT}`);
+});
 
 // Export for serverless environments (Vercel)
 module.exports = app;
