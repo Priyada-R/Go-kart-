@@ -197,13 +197,16 @@
     }
 
     const btn = document.getElementById('pay-btn');
-    btn.textContent = 'Processing...';
+    const originalText = btn.textContent;
+    btn.textContent = 'Preparing Secure Checkout...';
     btn.disabled = true;
 
     const formData = new FormData(e.target);
     const data = Object.fromEntries(formData.entries());
 
     try {
+      console.log("[Booking] Initiating order creation...");
+      
       // 1. Create Order
       const res = await fetch('/booking/create-order', {
         method: 'POST',
@@ -212,29 +215,44 @@
       });
       const order = await res.json();
 
-      if (!order.success) throw new Error(order.message);
+      if (!order.success) {
+        throw new Error(order.message || 'Failed to create order on server.');
+      }
       
-      console.log("Order Created:", order);
+      console.log("[Booking] Server order response:", order);
       
-      // -- Dummy Bypass Flow --
-      if (RAZORPAY_KEY === 'dummy_key' || RAZORPAY_KEY.startsWith('YOUR')) {
-         alert("Notice: Test keys are used. Simulating successful Razorpay payment automatically.");
+      // -- Detection: Real keys vs Placeholders --
+      const isDummy = RAZORPAY_KEY.includes('YOUR_') || RAZORPAY_KEY === 'dummy_key' || !order.order_id.startsWith('order_');
+
+      if (isDummy) {
+         console.warn("[Booking] Dummy/Test keys detected or invalid Order ID. Using simulation.");
+         btn.textContent = 'Simulating Payment...';
+         
+         // Mock slight delay for realism
+         await new Promise(r => setTimeout(r, 1500));
+         
          const verifyRes = await fetch('/booking/verify-payment', {
            method: 'POST',
            headers: { 'Content-Type': 'application/json' },
            body: JSON.stringify({
              razorpay_order_id: order.order_id,
-             razorpay_payment_id: "pay_dummy_" + Math.random().toString(36).substring(2, 10),
+             razorpay_payment_id: "pay_simulated_" + Math.random().toString(36).substring(2, 10),
              razorpay_signature: "dummy_sig",
              booking_id: order.booking_id,
              is_dummy: true
            })
          });
          const verifyResult = await verifyRes.json();
-         if(verifyResult.success) window.location.href = `/booking/receipt/${verifyResult.receiptId}`;
-         else alert("Mock verification failed.");
+         if(verifyResult.success) {
+           window.location.href = `/booking/receipt/${verifyResult.receiptId}`;
+         } else {
+           throw new Error("Mock verification failed.");
+         }
          return;
       }
+
+      console.log("[Booking] Launching real Razorpay Modal...");
+      btn.textContent = 'Waiting for Payment Modal...';
 
       // 2. Initialize Razorpay Checkout
       const options = {
@@ -245,7 +263,9 @@
         description: "Go Karting Session - " + data.packageType,
         order_id: order.order_id,
         handler: async function (response) {
-          // 3. Verify Payment
+          console.log("[Razorpay] Success Handler Triggered:", response);
+          btn.textContent = 'Verifying Payment...';
+          
           try {
             const verifyRes = await fetch('/booking/verify-payment', {
               method: 'POST',
@@ -260,15 +280,18 @@
             
             const verifyResult = await verifyRes.json();
             if (verifyResult.success) {
-               // Redirect to Receipt
+               console.log("[Booking] Payment Verified. Redirecting...");
                window.location.href = `/booking/receipt/${verifyResult.receiptId}`;
             } else {
                alert("Payment verification failed. Please contact support.");
-               btn.textContent = 'Pay & Confirm Booking 🏁';
+               btn.textContent = originalText;
                btn.disabled = false;
             }
           } catch(err) {
+             console.error("[Booking] Verification Error:", err);
              alert('Error verifying payment.');
+             btn.textContent = originalText;
+             btn.disabled = false;
           }
         },
         prefill: {
@@ -278,20 +301,34 @@
         },
         theme: {
           color: "#EA0000"
+        },
+        modal: {
+          ondismiss: function() {
+            console.log("[Razorpay] Modal dismissed by user.");
+            btn.textContent = originalText;
+            btn.disabled = false;
+          }
         }
       };
 
+      if (typeof Razorpay === 'undefined') {
+        throw new Error("Razorpay script not loaded. Please check your internet connection.");
+      }
+
       const rzp = new Razorpay(options);
       rzp.on('payment.failed', function (response){
-        alert("Payment failed! Reason: " + response.error.description);
-        btn.textContent = 'Pay & Confirm Booking 🏁';
+        console.error("[Razorpay] Payment Failed:", response.error);
+        alert("Payment failed! " + response.error.description);
+        btn.textContent = originalText;
         btn.disabled = false;
       });
+      
       rzp.open();
       
     } catch (err) {
-      alert('Error initiating checkout: ' + err.message);
-      btn.textContent = 'Pay & Confirm Booking 🏁';
+      console.error("[Booking] Exception:", err);
+      alert('Checkout error: ' + err.message);
+      btn.textContent = originalText;
       btn.disabled = false;
     }
   });

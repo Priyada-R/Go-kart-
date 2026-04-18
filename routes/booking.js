@@ -92,17 +92,33 @@ router.post('/create-order', async (req, res) => {
     
     // Create Razorpay order
     const options = {
-      amount: totalPrice * 100, // Razorpay works in smallest currency unit (paise)
+      amount: Math.round(totalPrice * 100), // Ensure integer (paise)
       currency: 'INR',
       receipt: booking._id.toString()
     };
     
-    let order_id = "order_dummy_" + Math.random().toString(36).substr(2, 9);
+    let order_id = null;
     
-    // Only call Razorpay if real keys are provided
-    if (process.env.RAZORPAY_KEY_ID && !process.env.RAZORPAY_KEY_ID.startsWith('YOUR') && process.env.RAZORPAY_KEY_ID !== 'dummy_key') {
-      const order = await razorpay.orders.create(options);
-      order_id = order.id;
+    // Check if we have real/test keys (not placeholders)
+    const hasRealKeys = process.env.RAZORPAY_KEY_ID && 
+                       !process.env.RAZORPAY_KEY_ID.includes('YOUR_') && 
+                       process.env.RAZORPAY_KEY_ID !== 'dummy_key';
+
+    if (hasRealKeys) {
+      try {
+        console.log(`[Razorpay] Creating order for amount: ${options.amount}`);
+        const order = await razorpay.orders.create(options);
+        order_id = order.id;
+        console.log(`[Razorpay] Order created successfully: ${order_id}`);
+      } catch (rzpErr) {
+        console.error('[Razorpay] Order creation failed:', rzpErr);
+        // If real keys failed, we shouldn't continue with a dummy ID unless explicitly in dummy mode
+        throw new Error('Razorpay service unavailable. Please try again later.');
+      }
+    } else {
+      // Dummy mode
+      order_id = "order_dummy_" + Math.random().toString(36).substr(2, 9);
+      console.log(`[Razorpay] Dummy mode active. Generated ID: ${order_id}`);
     }
     
     // Update booking with Order ID
