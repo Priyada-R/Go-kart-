@@ -214,6 +214,8 @@
 
       if (!order.success) throw new Error(order.message);
       
+      console.log("Order Created:", order);
+      
       // -- Dummy Bypass Flow --
       if (RAZORPAY_KEY === 'dummy_key' || RAZORPAY_KEY.startsWith('YOUR')) {
          alert("Notice: Test keys are used. Simulating successful Razorpay payment automatically.");
@@ -275,29 +277,7 @@
           contact: data.phone
         },
         theme: {
-          color: "#ff6a00"
-        },
-        config: {
-          display: {
-            blocks: {
-              netbanking: {
-                name: "Pay via Netbanking",
-                instruments: [
-                  { method: "netbanking" }
-                ]
-              },
-              upi: {
-                name: "Pay via UPI",
-                instruments: [
-                  { method: "upi" }
-                ]
-              }
-            },
-            sequence: ["block.netbanking", "block.upi"],
-            preferences: {
-              show_default_blocks: false
-            }
-          }
+          color: "#EA0000"
         }
       };
 

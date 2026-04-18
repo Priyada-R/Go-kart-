@@ -21,7 +21,9 @@ router.get('/login', (req, res) => {
 // Login POST
 router.post('/login', (req, res) => {
   const { username, password } = req.body;
-  if (username === process.env.ADMIN_USERNAME && password === process.env.ADMIN_PASSWORD) {
+  if (username && password && 
+      username.trim() === (process.env.ADMIN_USERNAME || 'admin').trim() && 
+      password.trim() === (process.env.ADMIN_PASSWORD || 'admin123').trim()) {
     req.session.adminLoggedIn = true;
     res.redirect('/admin/dashboard');
   } else {

@@ -1,6 +1,6 @@
 /* ============================================
    VELOCITY KARTING — Master Stylesheet
-   Theme: Glassmorphism | Colors: #ff6a00 + #2a2a40
+   Theme: Glassmorphism | Colors: #EA0000 + #2a2a40
    ============================================ */
 
 /* --- Google Fonts --- */
@@ -9,10 +9,13 @@
 /* --- CSS Custom Properties (Dark/Light Theme) --- */
 :root {
   /* Core palette */
-  --accent: #ff6a00;
-  --accent-light: #ff8c33;
-  --accent-dark: #e05e00;
-  --accent-glow: rgba(255, 106, 0, 0.3);
+  --accent: #EA0000;
+  --accent-light: #FF3333;
+  --accent-dark: #990000;
+  --accent-glow: rgba(234, 0, 0, 0.3);
+  --primary: #EA0000;
+  --primary-light: #FF3333;
+  --primary-dark: #990000;
   --dark-base: #2a2a40;
   --dark-deeper: #1e1e30;
   --dark-surface: #33334d;
@@ -31,7 +34,7 @@
   --border-color: rgba(255, 255, 255, 0.08);
   --input-bg: rgba(255, 255, 255, 0.06);
   --input-border: rgba(255, 255, 255, 0.12);
-  --input-focus: rgba(255, 106, 0, 0.4);
+  --input-focus: rgba(234, 0, 0, 0.4);
   --overlay: rgba(0, 0, 0, 0.7);
   --nav-bg: rgba(15, 15, 26, 0.85);
   --success: #00c853;
@@ -131,7 +134,7 @@ ul { list-style: none; }
 .accent-text { color: var(--accent); }
 
 .gradient-text {
-  background: linear-gradient(135deg, var(--accent), var(--accent-light), #ffab40);
+  background: linear-gradient(135deg, var(--accent), var(--accent-light), #FF4D4D);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -282,7 +285,7 @@ ul { list-style: none; }
 .nav-links a:hover,
 .nav-links a.active {
   color: var(--accent);
-  background: rgba(255, 106, 0, 0.1);
+  background: rgba(234, 0, 0, 0.1);
 }
 
 .nav-actions {
@@ -419,8 +422,8 @@ ul { list-style: none; }
   align-items: center;
   gap: 8px;
   padding: 8px 20px;
-  background: rgba(255, 106, 0, 0.15);
-  border: 1px solid rgba(255, 106, 0, 0.3);
+  background: rgba(234, 0, 0, 0.15);
+  border: 1px solid rgba(234, 0, 0, 0.3);
   border-radius: var(--radius-full);
   color: var(--accent);
   font-size: 0.9rem;
@@ -456,6 +459,24 @@ ul { list-style: none; }
   margin-top: 70px;
   padding-top: 40px;
   border-top: 1px solid var(--border-color);
+  flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
+  .hero-stats {
+    gap: 30px;
+    margin-top: 40px;
+    padding-top: 30px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-stats {
+    gap: 20px;
+  }
+  .hero-stat h3 {
+    font-size: 1.8rem;
+  }
 }
 
 .hero-stat h3 {
@@ -569,7 +590,7 @@ ul { list-style: none; }
 
 /* --- CTA Section --- */
 .cta-section {
-  background: linear-gradient(135deg, var(--accent), var(--accent-light), #ffab40);
+  background: linear-gradient(135deg, var(--accent), var(--accent-light), #FF4D4D);
   padding: 80px 24px;
   text-align: center;
   border-radius: var(--radius-lg);
@@ -712,7 +733,7 @@ ul { list-style: none; }
 
 .package-card.selected {
   border-color: var(--accent);
-  background: rgba(255, 106, 0, 0.08);
+  background: rgba(234, 0, 0, 0.08);
 }
 
 .package-card.featured {
@@ -884,7 +905,7 @@ ul { list-style: none; }
 
 .star-rating .star:hover,
 .star-rating .star.active {
-  color: #ffc107;
+  color: #EA0000;
   transform: scale(1.15);
 }
 
@@ -1447,4 +1468,91 @@ ul { list-style: none; }
 ::selection {
   background: var(--accent);
   color: #fff;
+}
+
+/* --- Brochure Section --- */
+.brochure-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 30px;
+  margin-top: 40px;
+}
+
+.brochure-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  aspect-ratio: 1 / 1.414; /* Standard A4 ratio */
+  cursor: pointer;
+  background: var(--bg-card);
+}
+
+.brochure-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-slow);
+}
+
+.brochure-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 60%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 30px;
+  opacity: 0;
+  transition: opacity var(--transition-base);
+}
+
+.brochure-card:hover .brochure-image {
+  transform: scale(1.05);
+}
+
+.brochure-card:hover .brochure-overlay {
+  opacity: 1;
+}
+
+.brochure-info h3 {
+  color: #fff;
+  margin-bottom: 8px;
+  font-size: 1.5rem;
+}
+
+.brochure-info p {
+  color: rgba(255,255,255,0.8);
+  font-size: 0.95rem;
+  margin-bottom: 20px;
+}
+
+.brochure-actions {
+  display: flex;
+  gap: 12px;
+}
+
+@media (max-width: 600px) {
+  .brochure-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Feedback Form Specifics */
+.feedback-form-inner {
+  padding: 40px;
+}
+
+@media (max-width: 600px) {
+  .feedback-form-inner {
+    padding: 24px 20px;
+  }
+}
+
+/* Ensure no horizontal overflow */
+body {
+  overflow-x: hidden;
+}
+
+.container {
+  overflow-x: hidden;
 }
