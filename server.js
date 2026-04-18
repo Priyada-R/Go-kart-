@@ -53,6 +53,6 @@ app.use((req, res) => {
 
 // Explicit Native Server Bind
 console.log('Initiating server.listen() binding call...');
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', () => {
   console.log(`🚀 Server running on port ${PORT}`);
 });
