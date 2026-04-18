@@ -5,7 +5,7 @@ const path = require('path');
 const cors = require('cors');
 const connectDB = require('./config/db');
 const session = require('express-session');
-const http = require('http');
+
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -33,6 +33,10 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
 // Routes
+app.get("/health", (req, res) => {
+  res.send("OK");
+});
+
 app.use('/', require('./routes/index'));
 app.use('/booking', require('./routes/booking'));
 app.use('/feedback', require('./routes/feedback'));
@@ -49,7 +53,6 @@ app.use((req, res) => {
 
 // Explicit Native Server Bind
 console.log('Initiating server.listen() binding call...');
-const server = http.createServer(app);
-server.listen(PORT, '0.0.0.0', () => {
-  console.log(`🏎️  Velocity Karting ACTIVE and LISTENING at http://0.0.0.0:${PORT}`);
+app.listen(PORT, () => {
+  console.log(`🚀 Server running on port ${PORT}`);
 });
