@@ -1,0 +1,54 @@
+<%- include('./partials/header', { title: title }) %>
+
+<main class="brochure-page" style="padding: 100px 20px 60px; min-height: 80vh; display: flex; flex-direction: column; align-items: center; text-align: center;">
+  <div class="container" style="width: 100%;">
+    <h1 class="page-title" style="margin-bottom: 2rem;">Velocity Karts Packages</h1>
+    
+    <div class="brochure-container" style="max-width: 800px; margin: 0 auto; background: var(--bg-card, #1a1a1a); border-radius: 12px; padding: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+      <div class="image-wrapper" style="margin-bottom: 25px; border-radius: 8px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1);">
+        <!-- We use the image path requested. If the image is not found, a placeholder is displayed. -->
+        <img id="brochureImage" src="/images/brochure.png" alt="Velocity Karts Brochure" style="width: 100%; max-height: 800px; object-fit: contain; display: block; background: #000;" onerror="this.onerror=null; this.src='https://placehold.co/800x1200/1a1a1a/e50914?text=Please+Save+Your+Image+As\\npublic/images/brochure.png';">
+      </div>
+      
+      <div class="action-buttons" style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+        <a href="/images/brochure.png" download="Velocity_Karts_Brochure.png" class="btn btn-primary" style="display: flex; align-items: center; gap: 8px; padding: 12px 24px; font-weight: bold; border-radius: 8px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+          Download Brochure
+        </a>
+        
+        <button id="shareBtn" class="btn btn-outline" style="display: flex; align-items: center; gap: 8px; background: transparent; border: 2px solid #e50914; color: #e50914; padding: 12px 24px; font-weight: bold; border-radius: 8px; cursor: pointer; transition: all 0.3s ease;" onmouseover="this.style.background='#e50914'; this.style.color='#fff';" onmouseout="this.style.background='transparent'; this.style.color='#e50914';">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+          Share with Friends
+        </button>
+      </div>
+      
+      <p id="shareMsg" style="margin-top: 15px; display: none; color: #4ade80; font-weight: 500;">Link copied to clipboard!</p>
+    </div>
+  </div>
+</main>
+
+<script>
+document.getElementById('shareBtn').addEventListener('click', async () => {
+  const shareData = {
+    title: 'Velocity Karts Brochure',
+    text: 'Check out the amazing packages at Velocity Karts!',
+    url: window.location.href
+  };
+
+  try {
+    if (navigator.share) {
+      await navigator.share(shareData);
+    } else {
+      // Fallback: Copy URL to clipboard
+      await navigator.clipboard.writeText(window.location.href);
+      const msg = document.getElementById('shareMsg');
+      msg.style.display = 'block';
+      setTimeout(() => msg.style.display = 'none', 3000);
+    }
+  } catch (err) {
+    console.error('Share failed:', err);
+  }
+});
+</script>
+
+<%- include('./partials/footer') %>

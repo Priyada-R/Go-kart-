@@ -18,4 +18,10 @@ router.get('/', (req, res) => {
   });
 });
 
+router.get('/brochure', (req, res) => {
+  res.render('brochure', {
+    title: 'Velocity Karting — Brochure'
+  });
+});
+
 module.exports = router;

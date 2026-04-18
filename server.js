@@ -1,12 +1,15 @@
 require('dotenv').config();
+console.log('--- Render Engine Booting Sequence Started ---');
 const express = require('express');
 const path = require('path');
 const cors = require('cors');
 const connectDB = require('./config/db');
 const session = require('express-session');
 
+
 const app = express();
 const PORT = process.env.PORT || 3000;
+console.log(`Configured to bind to port: ${PORT}`);
 
 // Connect to MongoDB
 connectDB();
@@ -30,6 +33,10 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
 // Routes
+app.get("/health", (req, res) => {
+  res.send("OK");
+});
+
 app.use('/', require('./routes/index'));
 app.use('/booking', require('./routes/booking'));
 app.use('/feedback', require('./routes/feedback'));
@@ -44,8 +51,13 @@ app.use((req, res) => {
   res.status(404).render('404', { title: 'Page Not Found' });
 });
 
-app.listen(PORT, () => {
-  console.log(`🏎️  Velocity Karting running at http://localhost:${PORT}`);
-});
+// Ultimate Fallback Server Binding Protocol
+const host = process.env.RENDER ? '0.0.0.0' : undefined;
 
-// Triggering restart to load new Razopay keys.
+app.listen(PORT, host, () => {
+  console.log(`\n\n-----------------------------------------`);
+  console.log(`🚀 Velocity Karting SERVER ACTIVATED!`);
+  console.log(`🟢 Network: Listening on PORT ${PORT}`);
+  console.log(`🌐 Host Interface: ${host || 'Default/Dynamic'}`);
+  console.log(`-----------------------------------------\n\n`);
+});
