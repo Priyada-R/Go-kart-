@@ -51,8 +51,13 @@ app.use((req, res) => {
   res.status(404).render('404', { title: 'Page Not Found' });
 });
 
-// Explicit Native Server Bind
-console.log('Initiating server.listen() binding call...');
-app.listen(PORT, '0.0.0.0', () => {
-  console.log(`🚀 Server running on port ${PORT}`);
+// Ultimate Fallback Server Binding Protocol
+const host = process.env.RENDER ? '0.0.0.0' : undefined;
+
+app.listen(PORT, host, () => {
+  console.log(`\n\n-----------------------------------------`);
+  console.log(`🚀 Velocity Karting SERVER ACTIVATED!`);
+  console.log(`🟢 Network: Listening on PORT ${PORT}`);
+  console.log(`🌐 Host Interface: ${host || 'Default/Dynamic'}`);
+  console.log(`-----------------------------------------\n\n`);
 });

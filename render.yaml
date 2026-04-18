@@ -1,13 +1,13 @@
 services:
   - type: web
-    name: velocity-karting
+    name: velocity-karting-production
     env: node
     plan: free
     buildCommand: npm install
-    startCommand: node server.js
+    startCommand: node server.js --bind 0.0.0.0
+    healthCheckPath: /health
+    autoDeploy: false
     envVars:
-      - key: PORT
-        value: 10000
       - key: NODE_ENV
         value: production
       - key: MONGO_URI
