@@ -13,8 +13,8 @@ const razorpay = new Razorpay({
 
 const DEFAULT_PACKAGES = {
   Standard: { price: 499, duration: '15 min', features: ['1 Race Session', 'Helmet & Gear', 'Timing Display'] },
-  Premium: { price: 699, duration: '30 min', features: ['2 Race Sessions', 'Helmet & Gear', 'Timing Display', 'Photo Package'] },
-  VIP: { price: 899, duration: '60 min', features: ['Unlimited Sessions', 'Premium Gear', 'Live Timing App', 'Photo & Video Package', 'Refreshments'] }
+  Premium: { price: 599, duration: '30 min', features: ['2 Race Sessions', 'Helmet & Gear', 'Timing Display', 'Photo Package'] },
+  VIP: { price: 799, duration: '60 min', features: ['Unlimited Sessions', 'Premium Gear', 'Live Timing App', 'Photo & Video Package', 'Refreshments'] }
 };
 
 // GET Booking Page
