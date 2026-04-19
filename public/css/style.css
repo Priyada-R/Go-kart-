@@ -740,6 +740,11 @@ ul { list-style: none; }
   box-shadow: 0 0 0 3px var(--input-focus);
 }
 
+.form-group select option {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
 .form-group textarea {
   resize: vertical;
   min-height: 120px;
