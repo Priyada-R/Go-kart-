@@ -11,9 +11,9 @@ router.get('/', (req, res) => {
       { icon: '🎉', title: 'Group Events', desc: 'Corporate outings, birthday parties, and team-building with custom packages and catering.' }
     ],
     testimonials: [
-      { name: 'Arjun Mehta', role: 'Weekend Racer', quote: 'Velocity Karting is hands-down the best karting experience I\'ve ever had. The track design is insane!', avatar: 'AM' },
-      { name: 'Priya Sharma', role: 'Corporate Event', quote: 'We booked a team event here and everyone loved it. The staff made everything seamless and fun.', avatar: 'PS' },
-      { name: 'David Chen', role: 'Racing Enthusiast', quote: 'The karts are well-maintained, and the competitive timing system keeps me coming back every week.', avatar: 'DC' }
+      { name: 'Pragati Ankushrao', role: 'Weekend Racer', quote: 'Velocity Karting is hands-down the best karting experience I\'ve ever had. The track design is insane!', avatar: 'PA' },
+      { name: 'Bhumika Jadhav', role: 'Corporate Event', quote: 'We booked a team event here and everyone loved it. The staff made everything seamless and fun.', avatar: 'BJ' },
+      { name: 'Priyada Ranmode', role: 'Racing Enthusiast', quote: 'The karts are well-maintained, and the competitive timing system keeps me coming back every week.', avatar: 'PR' }
     ]
   });
 });
